@@ -1,0 +1,40 @@
+﻿@model IEnumerable<moeKino.Models.Ticket>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div style="min-height:462px">
+
+    <h2 style="color:#f1d8b3" class="text-center mb-5">Your movie tickets</h2>
+
+    @{ int sum = 0;
+        List<moeKino.Models.Ticket> list = Model.Where(item => ViewBag.ClientId == item.ClientId).OrderByDescending(item=>item.Date).ToList();
+
+        if (list.Count() == 0)
+        {
+            <h5 style="color:#f1d8b3" class="text-center mb-5">You haven't bought tickets yet!</h5>
+        }
+        else
+        {
+            foreach (var item in list)
+            {
+                <div style="position: relative;text-align: center;" class="mb-5">
+                    <img src="~/Content/movie-ticket.gif" width="940px;">
+                    <div class="pb-3 ticket" style="position: absolute;top: 42%;left: 63%;transform: translate(-50%, -50%); min-width: 250px;text-align: left;">
+                        <b>Ticket number: </b> @Html.DisplayFor(modelItem => item.Id) <br />
+                        <b>Movie: </b> @Html.DisplayFor(modelItem => item.Movie) <br />
+                        <b>Date: </b>@Html.DisplayFor(modelItem => item.Date) <br />
+                        <b>Time: </b>@Html.DisplayFor(modelItem => item.Time) <br />
+                        <b>ID: </b>@Html.DisplayFor(modelItem => item.Id) <br />
+                        <b>Number of tickets: </b>@Html.DisplayFor(modelItem => item.NumberTickets)
+                    </div>
+                </div>
+
+            }
+
+        }
+    }
+
+
+
+</div>

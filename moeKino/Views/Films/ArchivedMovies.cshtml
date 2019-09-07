@@ -1,0 +1,48 @@
+﻿@model IEnumerable<moeKino.Models.ArchivedFilm>
+
+@{
+    ViewBag.Title = "Archived Movies";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div style="min-height:462px">
+
+    <h2 style="color:#f1d8b3" class="text-center mb-5">List of archived movies</h2>
+    <table class="table table-striped table-light w-50 border-dark" style="margin-left:25%" id="archivedTable">
+        <tbody class="text-dark">
+            @{ foreach (var item in Model)
+                {
+                    <tr class="mb-3">
+                        <td style="border-right:white" class="pl-5">
+                            <h2 class="text-center text-dark mb-5"><u>@item.Name</u></h2>
+                            <div>
+                                <b>@Html.DisplayNameFor(model => model.Genre):</b>  @Html.DisplayFor(model => item.Genre)
+                            </div>
+
+
+                            <div>
+                                <b>@Html.DisplayNameFor(model => model.Director):</b>  @Html.DisplayFor(model => item.Director)
+                            </div>
+
+                            <div>
+                                <b> @Html.DisplayNameFor(model => model.ReleaseDate):</b>  @Html.DisplayFor(model => item.ReleaseDate)
+                            </div>
+
+                            <div>
+                                <b>@Html.DisplayNameFor(model => model.LastScreening):</b>  @Html.DisplayFor(model => item.LastScreening)
+                            </div>
+                            <div>
+                                <b>@Html.DisplayNameFor(model => model.Audience):</b> @Html.DisplayFor(model => item.Audience)
+                            </div>
+                        <br />
+                        </td>
+                        <td style="border-left:white" class="pl-0 pt-4">
+                            <img class="s3" src="@Url.Content(item.Url)" width="150px" height="200" align="left" />
+                        </td>
+                    </tr>
+
+                }
+            }
+        </tbody>
+    </table>
+</div>

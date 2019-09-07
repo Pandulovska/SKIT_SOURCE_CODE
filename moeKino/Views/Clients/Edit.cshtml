@@ -1,0 +1,36 @@
+﻿@model moeKino.Models.Client
+
+@{
+    ViewBag.Title = "Edit";
+}
+<div style="min-height:462px">
+    <h2 style="color:#f1d8b3;" class="text-center">Edit</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+    <div class="form-horizontal mt-5" style="color:#f1d8b3;margin-left:40%">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ClientId)
+        @Html.HiddenFor(model => model.Name)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @id = "email" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger", @id = "nameError" })
+            </div>
+        </div>
+        <div class="form-group mt-4 row" style="margin-left: -20%;">
+            <div class="btn btn-default col-2">
+                <img src="~/Content/back.png" width="35px;" /> @Html.ActionLink("Back to List", "Index")
+            </div>
+            <div class="col-10">
+                <input type="submit" value="Save" class="btn btn-success btn-block" id="editBtn" />
+            </div>
+        </div>
+    </div>
+    }
+</div>
+ 

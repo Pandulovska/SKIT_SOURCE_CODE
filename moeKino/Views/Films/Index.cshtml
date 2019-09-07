@@ -1,0 +1,170 @@
+﻿@model IEnumerable<moeKino.Models.Film>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<table style="margin-left:15%;width:85%">
+    <tr>
+        <td>
+            <img src="https://media.giphy.com/media/8754ImlPF86US07FUi/source.gif" width="200px;" class="text-center">
+        </td>
+        <td>
+            @if (!User.IsInRole("Admin"))
+    {
+        <span class="font-weight-bold" style="color:#f1d8b3;font-size:18px;margin-left:20%">Price for each movie ticket: 250 MKD </span>
+}
+            @if (User.IsInRole("User"))
+    {
+                <br />
+        <span class="font-weight-bold" style="color:#f1d8b3;font-size:18px;margin-left:20%">Points: <span id="points">@ViewBag.Points</span></span>
+            }
+           @if (User.IsInRole("Admin"))
+            {
+                <br />
+            <div class="btn btn-default" style="margin-left:29%;">
+                <img src="~/Content/addMovie.png" width="40px;" />
+                @Html.ActionLink("Create New", "Create")
+            </div>
+            }
+
+        </td>
+    </tr>
+</table>
+<br />
+
+@if (User.IsInRole("Admin"))
+{
+    <table class="table table-striped table-light text-center w-75 border-dark" id="movieTable" style="margin-left:12%">
+        <thead>
+            <tr class="text-dark w-100" style="font-size:22px">
+                <th class="text-danger" style="width:25%;">Movie Name </th>
+                <th class="text-danger" style="width:32%">Movie Rating </th>
+                <th class="text-danger" style="width:23%">Movie Image</th>
+                <th class="text-danger" style="width:20%"></th>
+            </tr>
+        </thead>
+
+        <tbody class="text-dark">
+            @foreach (var item in Model)
+            {
+                <tr class="text-center">
+                    <td style="font-size:18px;">
+                        <h4 class="font-weight-bold mb-5">@Html.DisplayFor(modelItem => item.Name)</h4>                       
+
+                    </td>
+                    <td>
+                        @{
+                            if (item.Rating == 0)
+                            {
+                                <h5>0<br /><br />No rating yet</h5>
+                            }
+                            else
+                            {
+                                <h5>@item.Rating.ToString("#.##")  </h5> 
+                                 for (int i = 1; i <= item.Rating; i++)
+                                {
+                                    <img src="~/Content/star-on.svg" class="mb-2"/>
+                                    
+                                }
+                                }
+                            }
+                    </td>
+                    <td>
+                        <img src="@item.Url" width="160px" height="200px" />
+
+                    </td>
+
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-warning mb-2 pl-4 pr-4" })
+                        <br />
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-info mb-2" })
+                        <br />
+
+                        @* @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })*@
+                        <button data-movie-id="@item.Id" class="btn btn-danger js-delete">Delete</button>
+
+                    </td>
+                </tr>
+
+            }
+        </tbody>
+
+    </table>
+}
+else
+{
+    <table style="margin-left:12%" class="w-75" id="table">
+
+        <tr class="row">
+            @foreach (var item in Model)
+            {
+            <td class="col-4 text-center mb-4">
+                <br>
+                <img src="@item.Url" width="200px" height="300px" />
+                <br />
+
+                @if (User.IsInRole("User"))
+                {
+                    @Html.ActionLink(item.Name, "Details", new { id = item.Id }, new { @class = "btn", @style = "font-size:20px;color:#eab8b1;font-weight:bold;text-decoration:underline" })
+                    <div>
+                        <img src="https://www.freedomis.co.uk/ekmps/shops/freedomis/resources/Design/075688-3d-glossy-blue-orb-icon-business-basket.png" width="50px">
+                        @Html.ActionLink("Buy ticket", "AddClientToMovie", new { id = item.Id })
+                    </div>
+                }
+                else
+                {
+                    <h5 style="font-size:20px;" class="text-white font-weight-bold">
+                        @Html.ActionLink(item.Name, "Details", new { id = item.Id }, new { @class = "btn", @style = "font-size:20px;color:#eab8b1;font-weight:bold;text-decoration:underline" })
+                    </h5>
+                }
+                 @{
+                            if (item.Rating == 0)
+                                {
+                                                              
+                                <img src="~/Content/star-off.svg" class="mb-2"/> <br /> 
+                                <h5 style="color:#eab8b1">No rating yet</h5>
+                                }
+                            else
+                              {
+                                   
+                                for (int i = 1; i <= item.Rating; i++)
+                                {
+                                    <img src="~/Content/star-on.svg" class="mb-2"/>
+                                }
+                              <h5 style="color:#eab8b1">Rating: @item.Rating.ToString("#.##")  </h5> 
+                              }
+                      }
+                                              
+                   
+                <img src="~/Content/hr.png" width="260px" height="30px" style="border-bottom-left-radius: 50% 40%;border-bottom-right-radius: 50% 40%;" />
+            </td>
+
+
+            }
+    </table>
+}
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $("#movieTable .js-delete").on("click", function () {
+                var button = $(this);
+                console.log("here");
+                if (confirm("Are you sure you want to delete this movie?")) {
+                    $.ajax({
+                        url: "/api/Films1/" + button.attr("data-movie-id"),
+                        method: "DELETE",
+                        success: function () {
+                            table.row(button.parents("tr").remove().draw());                          
+                    
+                        }
+                    });
+                }
+
+            });
+
+            var table = $("#movieTable").DataTable();
+        });
+    </script>
+}

@@ -1,0 +1,52 @@
+﻿@model moeKino.Models.RatingClient
+@{
+    ViewBag.Title = "Buy a ticket";
+}
+<div style="color:#f1d8b3;min-height:550px">
+    <h2 class="text-center">Buy tickets for the movie - @ViewBag.Name</h2>
+
+    @using (Html.BeginForm("AddClientToMovie", "Films"))
+    {
+        @Html.HiddenFor(m => m.FilmId)
+
+        <div class="form-group mt-5 offset-sm-4 pl-4">
+            @{ var id = 0;
+                foreach (var item in Model.Clients)
+                {
+                    if (item.Name == User.Identity.Name)
+                    {
+                        id = item.ClientId;
+                        break;
+                    }
+                }
+            }
+            User: @Html.TextBox("name", User.Identity.Name, new { @class = "form-control mb-3", @readonly = "readonly" })
+            @Html.Hidden("ClientId", id.ToString())
+
+        </div>
+        <div class="form-group offset-sm-4 pl-4">
+            Date: <br /><input type="text" class="form-control" name="Date" id="datepicker" required>
+        </div>
+        <div class="form-group offset-sm-4 pl-4">
+            Time: <br /><input type="text" class="form-control" name="Time" value="@ViewBag.Time" readonly>
+        </div>
+        <div class="form-group offset-sm-4 pl-4">
+            Number of tickets:<br /> <input type="number" class="form-control" name="NumberTickets" id="tickets" value="1" min="1" max="6" required>
+        </div>
+        <button type="submit" class="btn btn-success btn-block w-25 offset-sm-4 mt-4" >Buy</button>
+    }
+
+</div>
+@section Scripts{
+    <script>
+        $(function () {
+            $("#datepicker").datepicker({
+                minDate: new Date(),
+                maxDate: "+4w",
+                dateFormat: "dd-mm-yy"
+            });
+        });
+       
+    </script>
+    
+}

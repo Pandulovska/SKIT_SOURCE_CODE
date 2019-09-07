@@ -1,0 +1,28 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+            {
+                using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", style= "font-size: 0.88rem; margin-left:-3%" }))
+    {
+
+                    @Html.AntiForgeryToken()
+
+
+<ul class="nav navbar-nav navbar-right text-left pt-2 text-white" style="margin-left:4%;font-size:12px">
+    <li class="d-inline">
+        Welcome, <br />@Html.ActionLink(User.Identity.GetUserName(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", id = "anchor", style = "color:#f1d8b3; font-size:10px" })
+    </li>
+    <li class="d-inline mt-1">
+        <button onclick="javascript:document.getElementById('logoutForm').submit()" class="btn btn-warning btn-sm text-center" id="logout" style="border-color:black;margin-left:15%">Log off</button>
+    </li>
+</ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right col-1 text-right pt-2" style="margin-left:-4%">
+        <li>          
+            <img src="~/Content/register.png" width="30px;" /> <span style="display:inline;">@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "login" })</span>
+        </li>
+        <li><img src="~/Content/login.png" width="30px;" /> <span style="display:inline;" class="pr-3">@Html.ActionLink("Login", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" ,@class="login"})</span></li>
+    </ul>
+}

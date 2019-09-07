@@ -1,0 +1,66 @@
+﻿@model moeKino.Models.Client
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div style="min-height:462px">
+    <h2 style="color:#f1d8b3;" class="text-center">Details about the client</h2>
+
+    <div style="color:#f1d8b3;font-size:15px;" class="mt-5 text-center row">
+        <dl class="dl-horizontal col-2 offset-4">
+           
+            <dt style="font-size:larger">
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+
+            <dd class="text-white">
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+            <dt style="font-size:larger">
+                @Html.DisplayNameFor(model => model.Points)
+            </dt>
+
+            <dd class="text-white">
+                @Html.DisplayFor(model => model.Points)
+            </dd>
+        </dl>
+        <dl class="dl-horizontal col-5 ml-5 text-left">
+            <dt style="font-size:larger" class="pl-4">List of movies: </dt>
+            <dd class="text-white">
+                @{
+                if (Model.movies.Capacity != 0)
+                {
+
+                    foreach (moeKino.Models.Film c in Model.movies)
+                    {
+                        <ul style="list-style-position:inside">
+                            <li>
+                                <a href="/Films/Details/@c.Id">@c.Name</a>
+                            </li>
+                        </ul>
+
+                }
+            }
+            else
+            {
+                <p class="pl-5">No movies</p>
+            }
+                }
+            </dd>
+
+        </dl>
+    </div>
+    <p class="text-center mt-4">
+        @if (User.IsInRole("User"))
+        {
+            <a href="../../Films/Index"><img src="~/Content/back.png" width="35px;" /></a>
+        }
+        else
+        {
+            <img src="~/Content/back.png" width="35px;" />@Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
+        }
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ClientId }, new { @class = "btn btn-warning" })
+    </p>
+
+</div>

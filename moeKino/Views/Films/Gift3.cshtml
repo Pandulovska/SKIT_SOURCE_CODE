@@ -1,0 +1,38 @@
+﻿@model moeKino.Models.Client
+@{
+    ViewBag.Title = "Gift3";
+}
+
+<div style="min-height:480px;width:98%">
+    <div class="text-center">
+        <img src="~/Content/slika.png" style="width:70px;" class="mt-2">
+        <h2 class="text-center text-white mb-2 d-inline">Congratulations!!!</h2>
+        <img src="~/Content/slika.png" style="width:70px;" class="mt-2">
+    </div>
+    <div style="color:white;">
+        <div style="margin-left:13%;">
+            <br />
+            <h4>First, we want to THANK YOU for using our services.</h4> <br />
+            <br />
+            <h5>You have bought more than 10 movie tickets and collected more than 100 points.</h5> <br />
+            <h5>So we have a special prize for you ...</h5> <br />
+            <div class="text-center">
+        <img src="~/Content/karta.png" style="width:65px;" class="mt-2">
+                <h3 class="text-center text-white mb-2 d-inline">GRATIS MOVIE CARD + POPCORNS</h3>
+        <img src="~/Content/popcorn-png-3.png" style="width:50px;" class="mt-2">
+            </div>
+
+            <h5>
+                You can accept the prize by which your points will be reset, or you can decline it and continue collecting more points for bigger prizes!
+            </h5>
+            <br />
+            <div class="text-center">
+                <div class="btn btn-success">
+                    @Html.ActionLink("Accept the prize", "AcceptGift", "Films")
+                </div>
+            </div>
+            <br />
+            <h5>You can take your prize in our cinemma, of course with your identification! </h5>
+        </div>
+    </div>
+</div>
