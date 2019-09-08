@@ -62,12 +62,12 @@
                             else
                             {
                                 <h5>@item.Rating.ToString("#.##")  </h5> 
-                                 for (int i = 1; i <= item.Rating; i++)
+                                for (int i = 1; i <= item.Rating; i++)
                                 {
                                     <img src="~/Content/star-on.svg" class="mb-2"/>
-                                    
+
                                 }
-                                }
+                            }
                             }
                     </td>
                     <td>
@@ -87,7 +87,7 @@
                     </td>
                 </tr>
 
-            }
+                            }
         </tbody>
 
     </table>
@@ -97,6 +97,7 @@ else
     <table style="margin-left:12%" class="w-75" id="table">
 
         <tr class="row">
+            @{var counter = 1; }
             @foreach (var item in Model)
             {
             <td class="col-4 text-center mb-4">
@@ -106,22 +107,25 @@ else
 
                 @if (User.IsInRole("User"))
                 {
-                    @Html.ActionLink(item.Name, "Details", new { id = item.Id }, new { @class = "btn", @style = "font-size:20px;color:#eab8b1;font-weight:bold;text-decoration:underline" })
+                    @Html.ActionLink(item.Name, "Details", new { id = item.Id }, new { @class = "btn", @name="film"+counter, @style = "font-size:20px;color:#eab8b1;font-weight:bold;text-decoration:underline" })
                     <div>
                         <img src="https://www.freedomis.co.uk/ekmps/shops/freedomis/resources/Design/075688-3d-glossy-blue-orb-icon-business-basket.png" width="50px">
                         @Html.ActionLink("Buy ticket", "AddClientToMovie", new { id = item.Id })
                     </div>
+                    counter++;
                 }
                 else
                 {
                     <h5 style="font-size:20px;" class="text-white font-weight-bold">
-                        @Html.ActionLink(item.Name, "Details", new { id = item.Id }, new { @class = "btn", @style = "font-size:20px;color:#eab8b1;font-weight:bold;text-decoration:underline" })
+                        @Html.ActionLink(item.Name, "Details", new { id = item.Id }, new { @class = "btn", @name = "film" + counter, @style = "font-size:20px;color:#eab8b1;font-weight:bold;text-decoration:underline" })
                     </h5>
+                    counter++;
+
                 }
                  @{
-                            if (item.Rating == 0)
-                                {
-                                                              
+                     if (item.Rating == 0)
+                     {
+
                                 <img src="~/Content/star-off.svg" class="mb-2"/> <br /> 
                                 <h5 style="color:#eab8b1">No rating yet</h5>
                                 }

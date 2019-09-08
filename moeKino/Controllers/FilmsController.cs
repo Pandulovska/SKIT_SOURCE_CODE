@@ -221,7 +221,7 @@ namespace moeKino.Controllers
                         rejting = Convert.ToDouble(ratingSum) / ratingCount;      
 
                 
-                return Json(new { success = true, responseText = "Thank you for rating this movie!", rate= rejting.ToString("#.##")}, JsonRequestBehavior.AllowGet);
+                return Json(new { success = true, responseText = "Thank you for rating this movie!", rating= rejting.ToString("#.##")}, JsonRequestBehavior.AllowGet);
 
                 }
                 else {
