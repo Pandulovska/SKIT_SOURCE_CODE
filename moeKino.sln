@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "moeKino", "moeKino\moeKino.csproj", "{0707FDBF-3B40-4B68-BD87-38D1C7557C09}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "moeKinoMock", "moeKinoMock\moeKinoMock.csproj", "{72D0938A-CA94-4D65-800E-C9784782F8FF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{0707FDBF-3B40-4B68-BD87-38D1C7557C09}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0707FDBF-3B40-4B68-BD87-38D1C7557C09}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0707FDBF-3B40-4B68-BD87-38D1C7557C09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72D0938A-CA94-4D65-800E-C9784782F8FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72D0938A-CA94-4D65-800E-C9784782F8FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72D0938A-CA94-4D65-800E-C9784782F8FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72D0938A-CA94-4D65-800E-C9784782F8FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

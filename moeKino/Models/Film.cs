@@ -36,5 +36,20 @@ namespace moeKino.Models
             clients = new List<Client>();
         }
 
+        public Film(int id, string name, string url, string genre, string director, string releaseDate, string shortDescription, string stars, double rating, int audience, string time)
+        {
+            Id = id;
+            Name = name;
+            Url = url;
+            Genre = genre;
+            Director = director;
+            ReleaseDate = releaseDate;
+            ShortDescription = shortDescription;
+            Stars = stars;
+            Rating = rating;
+            Audience = audience;
+            Time = time;
+            clients = new List<Client>();
+        }
     }
 }

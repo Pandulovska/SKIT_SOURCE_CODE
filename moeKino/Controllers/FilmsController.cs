@@ -8,19 +8,82 @@ using System;
 using System.Web.Routing;
 using System.Collections.Generic;
 
+
 namespace moeKino.Controllers
 {
     public class FilmsController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationDbContext db;
+
+        public FilmsController()
+        {
+            this.db = new ApplicationDbContext();
+        }
+
+        public FilmsController(ApplicationDbContext mockDb)
+        {
+            this.db = mockDb;
+        }
+
+
+        public Film getFilm(int? id)
+        {
+            Film film = db.Films.Find(id);
+            if (film == null)
+            {
+                return null;
+            }
+
+            return film;
+        }
+
+        public Film addFilm(Film film)
+        {
+            return db.Films.Add(film);
+        }
+
+        public DbSet<Film> getAllFilms()
+        {
+            return db.Films;
+        }
+
+        public DbSet<Client> getAllClients()
+        {
+            return db.Clients;
+        }
+
+        public Client getClient(int id)
+        {
+            return db.Clients.Find(id);
+        }
+
+        public DbSet<ArchivedFilm> getAllArchivedFilms()
+        {
+            return db.ArchivedFilms;
+        }
+
+        public Ticket addTicket(Ticket ticket)
+        {
+            return db.Tickets.Add(ticket);
+        }
+
+        public MovieRatings addRating(MovieRatings rating)
+        {
+            return db.MovieRatings.Add(rating);
+        }
+
+        /*
+        public IQueryable<MovieRatings> getRatingsForMovieId(int id)
+        {
+            return db.MovieRatings.Where(d => d.movieId.Equals(id));
+        }*/
 
         // GET: Films
         public ActionResult Index()
         {
-            
-            foreach (var film in db.Films.ToList())
+            foreach (var film in getAllFilms().ToList())
             {
-                var ratings = db.MovieRatings.Where(d => d.movieId.Equals(film.Id)).ToList();
+                var ratings = db.MovieRatings.Where(d=>d.movieId.Equals(film.Id)).ToList();
                 if (ratings.Count() > 0)
                 {
                     var ratingSum = ratings.Sum(d => d.rating);
@@ -35,7 +98,7 @@ namespace moeKino.Controllers
                 
             }
             var points = 0;
-            foreach (var item in db.Clients)
+            foreach (var item in getAllClients())
             {
 
                 if (item.Email == User.Identity.GetUserName())
@@ -45,7 +108,7 @@ namespace moeKino.Controllers
                 }
             }
             ViewBag.Points = points;
-            return View(db.Films.ToList());
+            return View(getAllFilms().ToList());
         }
         public ActionResult Soon() {
 
@@ -53,12 +116,12 @@ namespace moeKino.Controllers
         }
         public ActionResult ArchivedMovies()
         {
-            return View(db.ArchivedFilms.ToList());
+            return View(getAllArchivedFilms().ToList());
         }
         public ActionResult BestMovies()
         {
 
-            foreach (var film in db.Films.ToList())
+            foreach (var film in getAllFilms().ToList())
             {
                 var ratings = db.MovieRatings.Where(d => d.movieId.Equals(film.Id)).ToList();
                 if (ratings.Count() > 0)
@@ -72,12 +135,12 @@ namespace moeKino.Controllers
                     film.Rating = 0;
                 }
             }
-                return View(db.Films.ToList());
+                return View(getAllFilms().ToList());
         }
         public ActionResult AcceptGift(int p)
         {
             int id = 0;
-            foreach (var item in db.Clients)
+            foreach (var item in getAllClients())
             {
 
                 if (item.Email == User.Identity.GetUserName())
@@ -86,7 +149,7 @@ namespace moeKino.Controllers
                     break;
                 }
             }
-            var najdiKlient = db.Clients.Find(id);
+            var najdiKlient = getClient(id);
             najdiKlient.Points = najdiKlient.Points-p;
             db.SaveChanges();
 
@@ -109,13 +172,13 @@ namespace moeKino.Controllers
 
         //2 akcii za dodavanje klient na odreden film
         [HttpGet]
-         public ActionResult AddClientToMovie(int id) {
+        public ActionResult AddClientToMovie(int id) {
             var model = new RatingClient();
 
             ViewBag.Client = User.Identity.Name;
             model.FilmId = id;
-             model.Clients = db.Clients.ToList();
-             var film = db.Films.Find(id);
+             model.Clients = getAllClients().ToList();
+             var film = getFilm(id);
              ViewBag.Name = film.Name;
              ViewBag.Time = film.Time;
              return View(model);
@@ -123,14 +186,14 @@ namespace moeKino.Controllers
          [HttpPost]
          public ActionResult AddClientToMovie(RatingClient model)
          {
-             var film = db.Films.Find(model.FilmId);
-             var client = db.Clients.Find(model.ClientId);
+             var film = getFilm(model.FilmId);
+             var client = getClient(model.ClientId);
              film.clients.Add(client);
              client.Points += (10*model.NumberTickets);
              film.Audience += model.NumberTickets;
 
             Ticket ticket = new Ticket(model.ClientId,model.Date,model.Time,model.NumberTickets,film.Name);
-            db.Tickets.Add(ticket);
+            addTicket(ticket);
             db.SaveChanges();
             if (client.Points >= 50 && client.Points < 100)
             {
@@ -144,7 +207,7 @@ namespace moeKino.Controllers
             else if (client.Points > 100)
             {
                 int id = 0;
-                foreach (var item in db.Clients)
+                foreach (var item in getAllClients())
                 {
 
                     if (item.Email == User.Identity.GetUserName())
@@ -153,7 +216,7 @@ namespace moeKino.Controllers
                         break;
                     }
                 }
-                var najdiKlient = db.Clients.Find(id);
+                var najdiKlient = getClient(id);
                 najdiKlient.Points =najdiKlient.Points-101;
                 db.SaveChanges();
                 return RedirectToAction("Gift3", "Films");
@@ -163,23 +226,25 @@ namespace moeKino.Controllers
             //return View("Index", db.Films.ToList());
          }
 
+
         // GET: Films/Details/5
         public ActionResult Details(int? id)
         {
-             if (id == null)
+            if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Film film = db.Films.Find(id);
+            var film = getFilm(id);
             if (film == null)
             {
                 return HttpNotFound();
             }
-            if (User.IsInRole("User")) {
-                Client client=db.Clients.Where(d => d.Name == User.Identity.Name).First();
+            if (User.IsInRole("User"))
+            {
+                Client client = db.Clients.Where(d => d.Name == User.Identity.Name).First();
                 ViewBag.Id = client.ClientId;
             }
-            foreach (var movie in db.Films.ToList())
+            foreach (var movie in getAllFilms().ToList())
             {
                 var ratings = db.MovieRatings.Where(d => d.movieId.Equals(movie.Id)).ToList();
                 if (ratings.Count() > 0)
@@ -192,7 +257,7 @@ namespace moeKino.Controllers
                 {
                     movie.Rating = 0;
                 }
-                            
+
             }
             return View(film);
         }
@@ -202,14 +267,14 @@ namespace moeKino.Controllers
         {
             int userId = Convert.ToInt32(clientId);
             int movieId = Convert.ToInt32(id);
-            Film film =db.Films.Find(movieId);
+            Film film =getFilm(movieId);
            
               List<MovieRatings> ratings = db.MovieRatings.Where(d => d.movieId.Equals(film.Id)).ToList();
               int num=ratings.FindAll(r => r.clientId == userId).Count();
                 if (num == 0)
                 {
                     MovieRatings rating = new MovieRatings(movieId, Convert.ToInt32(userRate), userId);
-                    db.MovieRatings.Add(rating);
+                    addRating(rating);
                     db.SaveChanges();
 
                 var rejting = 0.0;
@@ -246,7 +311,7 @@ namespace moeKino.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Films.Add(film);
+                addFilm(film);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -262,7 +327,7 @@ namespace moeKino.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Film film = db.Films.Find(id);
+            Film film = getFilm(id);
             if (film == null)
             {
                 return HttpNotFound();

@@ -17,9 +17,21 @@ namespace moeKino.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext db;
 
         public AccountController()
         {
+            this.db = new ApplicationDbContext();
+        }
+
+        public AccountController(ApplicationDbContext mockDb)
+        {
+            this.db = mockDb;
+        }
+
+        public Client addClient(Client client)
+        {
+            return db.Clients.Add(client);
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -98,7 +110,7 @@ namespace moeKino.Controllers
         {
             return View();
         }
-        private ApplicationDbContext db = new ApplicationDbContext();
+
         //
         // POST: /Account/Register
         [HttpPost]
@@ -122,7 +134,7 @@ namespace moeKino.Controllers
                     var client = new Client();
                     client.Name = model.Email;
                     client.Email = model.Email;
-                    db.Clients.Add(client);
+                    addClient(client);
                     db.SaveChanges();
 
                     try

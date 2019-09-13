@@ -16,8 +16,18 @@ namespace moeKino.Controllers
     [Authorize]
     public class ClientsController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationDbContext db;
         private ApplicationUserManager _userManager;
+
+        public ClientsController()
+        {
+            this.db = new ApplicationDbContext();
+        }
+
+        public ClientsController(ApplicationDbContext mockDb)
+        {
+            this.db = mockDb;
+        }
 
         public ApplicationUserManager UserManager
         {
@@ -31,12 +41,32 @@ namespace moeKino.Controllers
             }
         }
 
+        public DbSet<Client> getAllClients()
+        {
+            return db.Clients;
+        }
+
+        public Client getClient(int? id)
+        {
+            return db.Clients.Find(id);
+        }
+
+        public Client addClient(Client client)
+        {
+            return db.Clients.Add(client);
+        }
+
+        public DbSet<Ticket> getAllTickets()
+        {
+            return db.Tickets;
+        }
+
         // GET: Clients
         public ActionResult Index()
         {
             if (User.IsInRole("Admin"))
             {
-                return View(db.Clients.ToList());
+                return View(getAllClients().ToList());
             }
             else
                 return RedirectToAction("Index", "Films");
@@ -49,7 +79,7 @@ namespace moeKino.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Client client = db.Clients.Find(id);
+            Client client = getClient(id);
             if (client == null)
             {
                 return HttpNotFound();
@@ -80,7 +110,7 @@ namespace moeKino.Controllers
                         var newClient = new Client();
                         newClient.Name = client.Email;
                         newClient.Email = client.Email;
-                        db.Clients.Add(newClient);
+                        addClient(newClient);
                         db.SaveChanges();
 
                         try
@@ -108,7 +138,7 @@ namespace moeKino.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Client client = db.Clients.Find(id);
+            Client client = getClient(id);
             if (client == null)
             {
                 return HttpNotFound();
@@ -141,14 +171,14 @@ namespace moeKino.Controllers
                
         public ActionResult Tickets()
         {
-            foreach ( var client in db.Clients) {
+            foreach ( var client in getAllClients()) {
                 if (client.Name == User.Identity.Name) {
                     ViewBag.ClientId = client.ClientId;
                     break;
                 }
             } 
            
-            return View(db.Tickets.ToList());
+            return View(getAllTickets().ToList());
 
         }
 

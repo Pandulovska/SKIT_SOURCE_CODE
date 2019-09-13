@@ -3,20 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Data;
-using System.Data.Entity;
-using System.Net;
-using moeKino.Models;
 
 namespace moeKino.Controllers
 {
     public class HomeController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult Index()
         {
 
-            return View(db.Films.ToList());
+            return View();
         }
 
         public ActionResult About()
