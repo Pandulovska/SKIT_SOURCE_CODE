@@ -10,8 +10,7 @@ namespace moeKino.Controllers
     {
         public ActionResult Index()
         {
-
-            return View();
+            return View("Index");
         }
 
         public ActionResult About()

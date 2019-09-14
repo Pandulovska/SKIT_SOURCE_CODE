@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "moeKino", "moeKino\moeKino.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "moeKinoMock", "moeKinoMock\moeKinoMock.csproj", "{72D0938A-CA94-4D65-800E-C9784782F8FF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "moeKino.Tests", "moeKino.Tests\moeKino.Tests.csproj", "{D08332C3-54E5-499D-8D0C-0CF65EFBE171}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{72D0938A-CA94-4D65-800E-C9784782F8FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72D0938A-CA94-4D65-800E-C9784782F8FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72D0938A-CA94-4D65-800E-C9784782F8FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D08332C3-54E5-499D-8D0C-0CF65EFBE171}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D08332C3-54E5-499D-8D0C-0CF65EFBE171}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D08332C3-54E5-499D-8D0C-0CF65EFBE171}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D08332C3-54E5-499D-8D0C-0CF65EFBE171}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
