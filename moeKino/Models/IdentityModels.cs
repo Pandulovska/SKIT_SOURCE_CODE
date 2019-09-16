@@ -23,6 +23,7 @@ namespace moeKino.Models
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
+            Database.SetInitializer<moeKino.Models.ApplicationDbContext>(null);
         }
         public static ApplicationDbContext Create()
         {

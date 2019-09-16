@@ -100,8 +100,8 @@ namespace moeKino.Controllers
             var points = 0;
             foreach (var item in getAllClients())
             {
-
-                if (item.Email == User.Identity.GetUserName())
+                //added User!=null so it won't throw the error 'object reference not set to an instance of an object.' when testing
+                if (User!=null && item.Email == User.Identity.GetUserName())
                 {
                     points = item.Points;
                     break;
@@ -142,7 +142,6 @@ namespace moeKino.Controllers
             int id = 0;
             foreach (var item in getAllClients())
             {
-
                 if (item.Email == User.Identity.GetUserName())
                 {
                     id = item.ClientId;
@@ -239,7 +238,8 @@ namespace moeKino.Controllers
             {
                 return HttpNotFound();
             }
-            if (User.IsInRole("User"))
+            //added User!=null so it won't throw the error 'object reference not set to an instance of an object.' when testing
+            if (User != null && User.IsInRole("User"))
             {
                 Client client = db.Clients.Where(d => d.Name == User.Identity.Name).First();
                 ViewBag.Id = client.ClientId;
@@ -259,7 +259,7 @@ namespace moeKino.Controllers
                 }
 
             }
-            return View(film);
+            return View("Details",film);
         }
 
         [HttpPost]
