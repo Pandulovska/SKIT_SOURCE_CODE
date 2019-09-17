@@ -110,14 +110,20 @@ namespace moeKino.Controllers
             ViewBag.Points = points;
             return View(getAllFilms().ToList());
         }
+        //
+        //GET: Films/Soon
         public ActionResult Soon() {
 
-            return View();
+            return View("Soon");
         }
+        //
+        //GET: Films/ArchivedMovies
         public ActionResult ArchivedMovies()
         {
             return View(getAllArchivedFilms().ToList());
         }
+        //
+        //GET: Films/BestMovies
         public ActionResult BestMovies()
         {
 
@@ -137,6 +143,8 @@ namespace moeKino.Controllers
             }
                 return View(getAllFilms().ToList());
         }
+        //
+        //REDIRECT: AcceptGift
         public ActionResult AcceptGift(int p)
         {
             int id = 0;
@@ -182,6 +190,7 @@ namespace moeKino.Controllers
              ViewBag.Time = film.Time;
              return View(model);
          }
+
          [HttpPost]
          public ActionResult AddClientToMovie(RatingClient model)
          {
