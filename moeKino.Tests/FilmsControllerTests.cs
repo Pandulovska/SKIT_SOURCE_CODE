@@ -3,6 +3,8 @@ using moeKino.Controllers;
 using moeKino.Models;
 using System.Collections.Generic;
 using System.Net;
+using System.Web.Http;
+using System.Web.Http.Results;
 using System.Web.Mvc;
 
 namespace moeKino.Tests {
@@ -15,6 +17,7 @@ namespace moeKino.Tests {
             controller = new FilmsController();
         }
 
+        [Priority(1)]
         [TestMethod]
         public void filmsIndexTest() {
             ViewResult result = controller.Index() as ViewResult;
@@ -32,6 +35,7 @@ namespace moeKino.Tests {
             Assert.AreEqual(1, films[9].Audience);
         }
 
+        [Priority(2)]
         [TestMethod]
         public void filmsDetailsTest()
         {
@@ -48,6 +52,7 @@ namespace moeKino.Tests {
 
         //
         //GET Test - Films/Details/{id} - invalid ID
+        [Priority(3)]
         [TestMethod]
         public void filmsDetailsTestInvalidId() {
             var result = controller.Details(1) as HttpNotFoundResult;
@@ -58,15 +63,20 @@ namespace moeKino.Tests {
         }
 
         //
-        //POST Test - Films/Details/{id}
+        //POST Test - Films/Details/
+        [Priority(4)]
         [TestMethod]
-        public void filmsDetailsPostTest() {
-            //TODO
-            throw new System.NotImplementedException();
+        public void filmsDetailsPostTest()
+        {
+            JsonResult result = controller.Details("8", "279", "87") as JsonResult;
+            var responseText = result.Data.GetType().GetProperty("responseText").GetValue(result.Data);
+            Assert.AreEqual(responseText, "You have already rated this movie!");
         }
+
 
         //
         //GET Test - Films/Soon
+        [Priority(5)]
         [TestMethod]
         public void filmsSoonTest() {
             var result = controller.Soon() as ViewResult;
@@ -75,6 +85,7 @@ namespace moeKino.Tests {
 
         //
         //GET Test - Films/ArchivedMovies
+        [Priority(6)]
         [TestMethod]
         public void filmsArchivedTest() {
             var result = controller.ArchivedMovies() as ViewResult;
@@ -85,6 +96,7 @@ namespace moeKino.Tests {
 
         //
         //GET Test - Films/BestMovies
+        [Priority(7)]
         [TestMethod]
         public void filmsBestMoviesTest() {
             var result = controller.BestMovies() as ViewResult;
@@ -93,20 +105,91 @@ namespace moeKino.Tests {
             Assert.AreEqual("Avengers: Infinity War", bestFilm.Name);
         }
 
-        //
-        //REDIRECT Test - AcceptGift/{p}
+        //GET Test - Films/Create
+        [Priority(8)]
         [TestMethod]
-        public void acceptGiftRedirectTest() {
-            var result = controller.AcceptGift(1) as RedirectToRouteResult;
+        public void filmsCreateTest()
+        {
+            ViewResult result = controller.Create() as ViewResult;
+            Assert.AreEqual("Create", result.ViewName);
+        }
+
+
+        //POST Test - Films/Create
+        [Priority(9)]
+        [TestMethod]
+        public void filmsCreatePostTest()
+        {
+            Film newFilm = new Film(4, "Ime4", "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png", "Musical", "Director 2", "6 May 2018 (USA)", "Short description", "Star 1, Star 2", 0.0, 0, "22:00");
+            System.Web.Mvc.RedirectToRouteResult result = controller.Create(newFilm) as System.Web.Mvc.RedirectToRouteResult;
             Assert.AreEqual("Index", result.RouteValues["action"]);
         }
 
-        //
-        //GET Test - Films/AddClientToMovie/{id}
+        //DELETE Test - Films1/Delete{id}
+        [Priority(10)]
         [TestMethod]
-        public void addClientToMovieGetTest() {
-            //TODO
-            throw new System.NotImplementedException();
+        public void filmsDeleteTest()
+        {
+            int id = controller.getFilmIdByTitle("Ime4");
+            Films1Controller films1Controller1 = new Films1Controller();
+            IHttpActionResult actionResult = films1Controller1.DeleteFilm(id);
+            var contentResult = actionResult as OkNegotiatedContentResult<Film>;
+            Assert.IsNotNull(contentResult);
         }
+
+        //GET Test - Films/Edit/{id}
+        [Priority(11)]
+        [TestMethod]
+        public void filmsEditTest()
+        {
+            ViewResult result = controller.Edit(280) as ViewResult;
+            Film film = (Film)result.Model;
+            Assert.AreEqual("Black Panther", film.Name);
+            Assert.AreEqual("16:00", film.Time);
+            Assert.AreEqual(15, film.Audience);
+
+            //Testing the View returned by a Controller
+            Assert.AreEqual("Edit", result.ViewName);
+        }
+
+        //
+        //GET Test - Films/Edit/{id} - invalid ID
+        [Priority(12)]
+        [TestMethod]
+        public void filmsEditTestInvalidId()
+        {
+            var result = controller.Details(1) as HttpNotFoundResult;
+            Assert.AreEqual(404, result.StatusCode);
+
+            var nullResult = controller.Details(null) as HttpStatusCodeResult;
+            Assert.AreEqual(400, nullResult.StatusCode);
+        }
+
+        //POST Test - Films/Edit/{id}
+        [Priority(13)]
+        [TestMethod]
+        public void filmsEditPostTest()
+        {
+            Film film = controller.getFilm(280);
+            film.Name = "Black Panther 2";
+            System.Web.Mvc.RedirectToRouteResult result = controller.Edit(film) as System.Web.Mvc.RedirectToRouteResult;
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.AreEqual(280, controller.getFilmIdByTitle("Black Panther 2"));
+        }
+
+        //POST Test - Films/Edit/{id}
+        [Priority(14)]
+        [TestMethod]
+        public void filmsEditPostTest2()
+        {
+            Film film = controller.getFilm(280);
+            film.Name = "Black Panther";
+            System.Web.Mvc.RedirectToRouteResult result = controller.Edit(film) as System.Web.Mvc.RedirectToRouteResult;
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.AreEqual(280, controller.getFilmIdByTitle("Black Panther"));
+        }
+
+
+
     }
 }

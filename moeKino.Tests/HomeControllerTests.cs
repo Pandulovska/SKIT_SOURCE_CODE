@@ -23,12 +23,14 @@ namespace moeKino.Tests {
         public void aboutTest() {
             ViewResult result = controller.About() as ViewResult;
             Assert.AreEqual("Your application description page.", result.ViewBag.Message);
+            Assert.AreEqual("About", result.ViewName);
         }
 
         [TestMethod]
         public void contactTest() {
             ViewResult result = controller.Contact() as ViewResult;
             Assert.AreEqual("Your contact page.", result.ViewBag.Message);
+            Assert.AreEqual("Contact", result.ViewName);
         }
     }
 }

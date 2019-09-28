@@ -25,6 +25,16 @@ namespace moeKino.Controllers
             this.db = mockDb;
         }
 
+        public int getFilmIdByTitle(string title)
+        {
+            Film film = db.Films.Where(d => d.Name.Equals(title)).First();
+            if (film == null)
+            {
+                return -1;
+            }
+
+            return film.Id;
+        }
 
         public Film getFilm(int? id)
         {
@@ -308,7 +318,7 @@ namespace moeKino.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
-            return View();
+            return View("Create");
         }
 
         // POST: Films/Create
@@ -325,7 +335,7 @@ namespace moeKino.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(film);
+            return View("Create",film);
         }
 
         // GET: Films/Edit/5
@@ -341,7 +351,7 @@ namespace moeKino.Controllers
             {
                 return HttpNotFound();
             }
-            return View(film);
+            return View("Edit",film);
         }
 
         // POST: Films/Edit/5

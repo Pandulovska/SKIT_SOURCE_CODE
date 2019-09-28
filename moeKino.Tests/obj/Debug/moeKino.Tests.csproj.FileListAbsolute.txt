@@ -80,7 +80,6 @@ C:\Users\andri\Desktop\SKIT_PROEKT\moeKino-InternetTehnologii-master\moeKino.Tes
 C:\Users\andri\Desktop\SKIT_PROEKT\moeKino-InternetTehnologii-master\moeKino.Tests\bin\Debug\Microsoft.AspNet.Identity.Owin.dll
 C:\Users\andri\Desktop\SKIT_PROEKT\moeKino-InternetTehnologii-master\moeKino.Tests\bin\Debug\Microsoft.Owin.Security.dll
 C:\Users\andri\Desktop\SKIT_PROEKT\moeKino-InternetTehnologii-master\moeKino.Tests\bin\Debug\Owin.dll
-C:\Users\andri\Desktop\SKIT_PROEKT\moeKino-InternetTehnologii-master\moeKino.Tests\bin\Debug\System.Web.Http.dll
 C:\Users\andri\Desktop\SKIT_PROEKT\moeKino-InternetTehnologii-master\moeKino.Tests\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
 C:\Users\andri\Desktop\SKIT_PROEKT\moeKino-InternetTehnologii-master\moeKino.Tests\bin\Debug\Microsoft.Owin.Security.Cookies.dll
 C:\Users\andri\Desktop\SKIT_PROEKT\moeKino-InternetTehnologii-master\moeKino.Tests\bin\Debug\System.Web.Http.WebHost.dll
@@ -326,3 +325,13 @@ C:\Users\PC\Desktop\SKIT_PROEKT_SOURCE\moeKino.Tests\bin\Debug\Castle.Core.xml
 C:\Users\PC\Desktop\SKIT_PROEKT_SOURCE\moeKino.Tests\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 C:\Users\PC\Desktop\SKIT_PROEKT_SOURCE\moeKino.Tests\bin\Debug\System.Threading.Tasks.Extensions.xml
 C:\Users\PC\Desktop\SKIT_PROEKT_SOURCE\moeKino.Tests\bin\Debug\Antlr3.Runtime.pdb
+C:\Users\andri\Desktop\SKIT_PROEKT\moeKino-InternetTehnologii-master\moeKino.Tests\bin\Debug\Microsoft.Owin.Security.Facebook.dll
+C:\Users\andri\Desktop\SKIT_PROEKT\moeKino-InternetTehnologii-master\moeKino.Tests\bin\Debug\Microsoft.Owin.Security.Google.dll
+C:\Users\andri\Desktop\SKIT_PROEKT\moeKino-InternetTehnologii-master\moeKino.Tests\bin\Debug\Microsoft.Owin.Security.MicrosoftAccount.dll
+C:\Users\andri\Desktop\SKIT_PROEKT\moeKino-InternetTehnologii-master\moeKino.Tests\bin\Debug\Microsoft.Owin.Security.OAuth.dll
+C:\Users\andri\Desktop\SKIT_PROEKT\moeKino-InternetTehnologii-master\moeKino.Tests\bin\Debug\Microsoft.Owin.Security.Twitter.dll
+C:\Users\andri\Desktop\SKIT_PROEKT\moeKino-InternetTehnologii-master\moeKino.Tests\bin\Debug\Microsoft.Owin.Security.Facebook.xml
+C:\Users\andri\Desktop\SKIT_PROEKT\moeKino-InternetTehnologii-master\moeKino.Tests\bin\Debug\Microsoft.Owin.Security.Google.xml
+C:\Users\andri\Desktop\SKIT_PROEKT\moeKino-InternetTehnologii-master\moeKino.Tests\bin\Debug\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\Users\andri\Desktop\SKIT_PROEKT\moeKino-InternetTehnologii-master\moeKino.Tests\bin\Debug\Microsoft.Owin.Security.OAuth.xml
+C:\Users\andri\Desktop\SKIT_PROEKT\moeKino-InternetTehnologii-master\moeKino.Tests\bin\Debug\Microsoft.Owin.Security.Twitter.xml
