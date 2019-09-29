@@ -69,7 +69,9 @@ namespace moeKino.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-            ViewBag.ReturnUrl = returnUrl;
+            if (returnUrl != null) {
+                ViewBag.ReturnUrl = returnUrl;
+            }
             return View();
         }
 

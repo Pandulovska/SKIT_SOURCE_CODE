@@ -84,13 +84,13 @@ namespace moeKino.Controllers
             {
                 return HttpNotFound();
             }
-            return View(client);
+            return View("Details",client);
         }
 
         // GET: Clients/Create
         public ActionResult Create()
         {
-            return View();
+            return View("Create");
         }
 
         // POST: Clients/Create
@@ -143,7 +143,7 @@ namespace moeKino.Controllers
             {
                 return HttpNotFound();
             }
-            return View(client);
+            return View("Edit",client);
         }
 
         // POST: Clients/Edit/5

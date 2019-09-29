@@ -24,7 +24,7 @@ namespace moeKino.Tests {
         }
 
         //
-        //GET Test 2 - Login with null parameter //should fail!!
+        //GET Test 2
         [TestMethod]
         public void loginGetTestNullParam() {
             var result = controller.Login(null) as ViewResult;

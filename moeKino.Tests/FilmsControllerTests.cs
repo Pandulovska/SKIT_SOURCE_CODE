@@ -54,17 +54,22 @@ namespace moeKino.Tests {
         //GET Test - Films/Details/{id} - invalid ID
         [Priority(3)]
         [TestMethod]
-        public void filmsDetailsTestInvalidId() {
+        public void filmsDetailsTestInvalidId1() {
             var result = controller.Details(1) as HttpNotFoundResult;
             Assert.AreEqual(404, result.StatusCode);
+        }
 
+        [Priority(4)]
+        [TestMethod]
+        public void filmsDetailsTestInvalidId2()
+        {
             var nullResult = controller.Details(null) as HttpStatusCodeResult;
             Assert.AreEqual(400, nullResult.StatusCode);
         }
 
         //
         //POST Test - Films/Details/
-        [Priority(4)]
+        [Priority(5)]
         [TestMethod]
         public void filmsDetailsPostTest()
         {
@@ -76,7 +81,7 @@ namespace moeKino.Tests {
 
         //
         //GET Test - Films/Soon
-        [Priority(5)]
+        [Priority(6)]
         [TestMethod]
         public void filmsSoonTest() {
             var result = controller.Soon() as ViewResult;
@@ -85,7 +90,7 @@ namespace moeKino.Tests {
 
         //
         //GET Test - Films/ArchivedMovies
-        [Priority(6)]
+        [Priority(7)]
         [TestMethod]
         public void filmsArchivedTest() {
             var result = controller.ArchivedMovies() as ViewResult;
@@ -96,7 +101,7 @@ namespace moeKino.Tests {
 
         //
         //GET Test - Films/BestMovies
-        [Priority(7)]
+        [Priority(8)]
         [TestMethod]
         public void filmsBestMoviesTest() {
             var result = controller.BestMovies() as ViewResult;
@@ -106,7 +111,7 @@ namespace moeKino.Tests {
         }
 
         //GET Test - Films/Create
-        [Priority(8)]
+        [Priority(9)]
         [TestMethod]
         public void filmsCreateTest()
         {
@@ -116,7 +121,7 @@ namespace moeKino.Tests {
 
 
         //POST Test - Films/Create
-        [Priority(9)]
+        [Priority(10)]
         [TestMethod]
         public void filmsCreatePostTest()
         {
@@ -126,7 +131,7 @@ namespace moeKino.Tests {
         }
 
         //DELETE Test - Films1/Delete{id}
-        [Priority(10)]
+        [Priority(11)]
         [TestMethod]
         public void filmsDeleteTest()
         {
@@ -138,7 +143,7 @@ namespace moeKino.Tests {
         }
 
         //GET Test - Films/Edit/{id}
-        [Priority(11)]
+        [Priority(12)]
         [TestMethod]
         public void filmsEditTest()
         {
@@ -154,19 +159,25 @@ namespace moeKino.Tests {
 
         //
         //GET Test - Films/Edit/{id} - invalid ID
-        [Priority(12)]
+        [Priority(13)]
         [TestMethod]
-        public void filmsEditTestInvalidId()
+        public void filmsEditTestInvalidId1()
         {
             var result = controller.Details(1) as HttpNotFoundResult;
             Assert.AreEqual(404, result.StatusCode);
 
+        }
+
+        [Priority(14)]
+        [TestMethod]
+        public void filmsEditTestInvalidId2()
+        {
             var nullResult = controller.Details(null) as HttpStatusCodeResult;
             Assert.AreEqual(400, nullResult.StatusCode);
         }
 
         //POST Test - Films/Edit/{id}
-        [Priority(13)]
+        [Priority(15)]
         [TestMethod]
         public void filmsEditPostTest()
         {
@@ -178,7 +189,7 @@ namespace moeKino.Tests {
         }
 
         //POST Test - Films/Edit/{id}
-        [Priority(14)]
+        [Priority(16)]
         [TestMethod]
         public void filmsEditPostTest2()
         {
@@ -188,8 +199,5 @@ namespace moeKino.Tests {
             Assert.AreEqual("Index", result.RouteValues["action"]);
             Assert.AreEqual(280, controller.getFilmIdByTitle("Black Panther"));
         }
-
-
-
     }
 }

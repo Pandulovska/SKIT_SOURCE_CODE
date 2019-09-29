@@ -79,7 +79,7 @@ namespace moeKino.Controllers
         // GET: /Manage/ChangePassword
         public ActionResult ChangePassword()
         {
-            return View();
+            return View("ChangePassword");
         }
 
         //
