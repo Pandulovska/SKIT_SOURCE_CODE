@@ -164,3 +164,9 @@ C:\Users\andri\Desktop\SKIT_PROEKT\moeKino-InternetTehnologii-master\moeKinoMock
 C:\Users\andri\Desktop\SKIT_PROEKT\moeKino-InternetTehnologii-master\moeKinoMock\obj\Debug\moeKinoMock.dll
 C:\Users\andri\Desktop\SKIT_PROEKT\moeKino-InternetTehnologii-master\moeKinoMock\obj\Debug\moeKinoMock.pdb
 C:\Users\andri\Desktop\SKIT_PROEKT\moeKino-InternetTehnologii-master\moeKinoMock\bin\Debug\System.Data.SqlClient.dll
+C:\Users\andri\Desktop\SKIT_PROEKT\moeKino-InternetTehnologii-master\moeKinoMock\bin\Debug\Mono.Cecil.dll
+C:\Users\andri\Desktop\SKIT_PROEKT\moeKino-InternetTehnologii-master\moeKinoMock\bin\Debug\Mono.Cecil.Mdb.dll
+C:\Users\andri\Desktop\SKIT_PROEKT\moeKino-InternetTehnologii-master\moeKinoMock\bin\Debug\Mono.Cecil.Pdb.dll
+C:\Users\andri\Desktop\SKIT_PROEKT\moeKino-InternetTehnologii-master\moeKinoMock\bin\Debug\Mono.Cecil.Rocks.dll
+C:\Users\andri\Desktop\SKIT_PROEKT\moeKino-InternetTehnologii-master\moeKinoMock\bin\Debug\NLog.dll
+C:\Users\andri\Desktop\SKIT_PROEKT\moeKino-InternetTehnologii-master\moeKinoMock\bin\Debug\NLog.xml

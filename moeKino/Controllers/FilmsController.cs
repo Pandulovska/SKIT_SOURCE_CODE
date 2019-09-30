@@ -27,13 +27,21 @@ namespace moeKino.Controllers
 
         public int getFilmIdByTitle(string title)
         {
-            Film film = db.Films.Where(d => d.Name.Equals(title)).First();
-            if (film == null)
+            try
+            {
+                Film film = db.Films.Where(d => d.Name.Equals(title)).First();
+
+                if (film == null)
+                {
+                    return -1;
+                }
+
+                return film.Id;
+            }
+            catch(Exception e)
             {
                 return -1;
             }
-
-            return film.Id;
         }
 
         public Film getFilm(int? id)
@@ -282,24 +290,28 @@ namespace moeKino.Controllers
         }
 
         [HttpPost]
-        public ActionResult Details(string userRate,string id, string clientId)
+        public ActionResult Details(string userRating,string id, string clientId)
         {
+            if (id == null || userRating == null || clientId == null || id == "" || userRating == "" || clientId == "")
+            {
+                throw new Exception("Input string was not in a correct format.");
+            }
             int userId = Convert.ToInt32(clientId);
             int movieId = Convert.ToInt32(id);
             Film film =getFilm(movieId);
-           
+          
               List<MovieRatings> ratings = db.MovieRatings.Where(d => d.movieId.Equals(film.Id)).ToList();
               int num=ratings.FindAll(r => r.clientId == userId).Count();
                 if (num == 0)
                 {
-                    MovieRatings rating = new MovieRatings(movieId, Convert.ToInt32(userRate), userId);
+                    MovieRatings rating = new MovieRatings(movieId, Convert.ToInt32(userRating), userId);
                     addRating(rating);
                     db.SaveChanges();
 
                 var rejting = 0.0;
                    
                         var ratingSum = ratings.Sum(d => d.rating);
-                        ratingSum += Convert.ToInt32(userRate);
+                        ratingSum += Convert.ToInt32(userRating);
                         var ratingCount = ratings.Count();
                         ratingCount++;
                         rejting = Convert.ToDouble(ratingSum) / ratingCount;      
@@ -352,6 +364,20 @@ namespace moeKino.Controllers
                 return HttpNotFound();
             }
             return View("Edit",film);
+        }
+
+        public ActionResult Editt(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Film film = getFilm(id);
+            if (film == null)
+            {
+                return HttpNotFound();
+            }
+            return View("Edit", film);
         }
 
         // POST: Films/Edit/5

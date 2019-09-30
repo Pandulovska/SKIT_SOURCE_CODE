@@ -241,7 +241,7 @@
            url: '/Films/Details',
            type: 'POST',
            dataType: 'json',
-           data: { 'userRate': rate, 'id': movieId, 'clientId': clientid },
+           data: { 'userRating': rate, 'id': movieId, 'clientId': clientid },
            success: function (response) {
                if (response.success) {
                    $('#done').html(response.responseText);

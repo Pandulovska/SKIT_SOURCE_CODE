@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using moeKino.Controllers;
 using moeKino.Models;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Web.Http;
@@ -71,17 +72,105 @@ namespace moeKino.Tests {
         //POST Test - Films/Details/
         [Priority(5)]
         [TestMethod]
-        public void filmsDetailsPostTest()
+        public void filmsDetailsPostTest1()
         {
             JsonResult result = controller.Details("8", "279", "87") as JsonResult;
             var responseText = result.Data.GetType().GetProperty("responseText").GetValue(result.Data);
             Assert.AreEqual(responseText, "You have already rated this movie!");
         }
 
+        //POST Test - Films/Details/
+        [Priority(6)]
+        [TestMethod]
+        public void filmsDetailsPostTest2()
+        {
+            try
+            {
+                JsonResult result = controller.Details("8", null, "87") as JsonResult;
+            }
+            catch(Exception e)
+            {
+                Assert.AreEqual(e.Message, "Input string was not in a correct format.");
+            }
+        }
 
+        //POST Test - Films/Details/
+        [Priority(7)]
+        [TestMethod]
+        public void filmsDetailsPostTest3()
+        {
+            try
+            {
+                JsonResult result = controller.Details("8", "", "87") as JsonResult;
+            }
+            catch (Exception e)
+            {
+                Assert.AreEqual(e.Message, "Input string was not in a correct format.");
+            }
+        }
+
+        //POST Test - Films/Details/
+        [Priority(8)]
+        [TestMethod]
+        public void filmsDetailsPostTest4()
+        {
+            try
+            {
+                JsonResult result = controller.Details("8", "279", null) as JsonResult;
+            }
+            catch (Exception e)
+            {
+                Assert.AreEqual(e.Message, "Input string was not in a correct format.");
+            }
+        }
+
+        //POST Test - Films/Details/
+        [Priority(9)]
+        [TestMethod]
+        public void filmsDetailsPostTest5()
+        {
+            try
+            {
+                JsonResult result = controller.Details("8", "279", "") as JsonResult;
+            }
+            catch (Exception e)
+            {
+                Assert.AreEqual(e.Message, "Input string was not in a correct format.");
+            }
+        }
+
+        //POST Test - Films/Details/
+        [Priority(10)]
+        [TestMethod]
+        public void filmsDetailsPostTest6()
+        {
+            try
+            {
+                JsonResult result = controller.Details(null,"8", "279") as JsonResult;
+            }
+            catch (Exception e)
+            {
+                Assert.AreEqual(e.Message, "Input string was not in a correct format.");
+            }
+        }
+
+        //POST Test - Films/Details/
+        [Priority(11)]
+        [TestMethod]
+        public void filmsDetailsPostTest7()
+        {
+            try
+            {
+                JsonResult result = controller.Details("","8", "279") as JsonResult;
+            }
+            catch (Exception e)
+            {
+                Assert.AreEqual(e.Message, "Input string was not in a correct format.");
+            }
+        }
         //
         //GET Test - Films/Soon
-        [Priority(6)]
+        [Priority(12)]
         [TestMethod]
         public void filmsSoonTest() {
             var result = controller.Soon() as ViewResult;
@@ -90,7 +179,7 @@ namespace moeKino.Tests {
 
         //
         //GET Test - Films/ArchivedMovies
-        [Priority(7)]
+        [Priority(13)]
         [TestMethod]
         public void filmsArchivedTest() {
             var result = controller.ArchivedMovies() as ViewResult;
@@ -101,7 +190,7 @@ namespace moeKino.Tests {
 
         //
         //GET Test - Films/BestMovies
-        [Priority(8)]
+        [Priority(14)]
         [TestMethod]
         public void filmsBestMoviesTest() {
             var result = controller.BestMovies() as ViewResult;
@@ -111,7 +200,7 @@ namespace moeKino.Tests {
         }
 
         //GET Test - Films/Create
-        [Priority(9)]
+        [Priority(15)]
         [TestMethod]
         public void filmsCreateTest()
         {
@@ -121,7 +210,7 @@ namespace moeKino.Tests {
 
 
         //POST Test - Films/Create
-        [Priority(10)]
+        [Priority(16)]
         [TestMethod]
         public void filmsCreatePostTest()
         {
@@ -131,7 +220,7 @@ namespace moeKino.Tests {
         }
 
         //DELETE Test - Films1/Delete{id}
-        [Priority(11)]
+        [Priority(17)]
         [TestMethod]
         public void filmsDeleteTest()
         {
@@ -143,7 +232,7 @@ namespace moeKino.Tests {
         }
 
         //GET Test - Films/Edit/{id}
-        [Priority(12)]
+        [Priority(18)]
         [TestMethod]
         public void filmsEditTest()
         {
@@ -159,25 +248,26 @@ namespace moeKino.Tests {
 
         //
         //GET Test - Films/Edit/{id} - invalid ID
-        [Priority(13)]
+        [Priority(19)]
         [TestMethod]
         public void filmsEditTestInvalidId1()
         {
-            var result = controller.Details(1) as HttpNotFoundResult;
+            var result = controller.Edit(-1) as HttpNotFoundResult;
             Assert.AreEqual(404, result.StatusCode);
 
         }
 
-        [Priority(14)]
+        [Priority(20)]
         [TestMethod]
         public void filmsEditTestInvalidId2()
         {
-            var nullResult = controller.Details(null) as HttpStatusCodeResult;
+            var nullResult = controller.Editt(null) as HttpStatusCodeResult;
             Assert.AreEqual(400, nullResult.StatusCode);
         }
 
+
         //POST Test - Films/Edit/{id}
-        [Priority(15)]
+        [Priority(21)]
         [TestMethod]
         public void filmsEditPostTest()
         {
@@ -189,7 +279,7 @@ namespace moeKino.Tests {
         }
 
         //POST Test - Films/Edit/{id}
-        [Priority(16)]
+        [Priority(22)]
         [TestMethod]
         public void filmsEditPostTest2()
         {
@@ -198,6 +288,41 @@ namespace moeKino.Tests {
             System.Web.Mvc.RedirectToRouteResult result = controller.Edit(film) as System.Web.Mvc.RedirectToRouteResult;
             Assert.AreEqual("Index", result.RouteValues["action"]);
             Assert.AreEqual(280, controller.getFilmIdByTitle("Black Panther"));
+        }
+
+        [Priority(23)]
+        [TestMethod]
+        public void getFilmIdByTitle1()
+        {
+            int id = controller.getFilmIdByTitle("Black Panther");
+            Assert.AreEqual(id, 280);
+        }
+
+        [Priority(24)]
+        [TestMethod]
+        public void getFilmIdByTitle2()
+        {
+            int id = controller.getFilmIdByTitle(" ");
+            Assert.AreEqual(id, -1);
+        }
+
+        [Priority(25)]
+        [TestMethod]
+        public void getFilmIdByTitle3()
+        {
+            int id = controller.getFilmIdByTitle(null);
+            Assert.AreEqual(id, -1);
+        }
+
+        //
+        //POST Test - Films/Details/
+        [Priority(26)]
+        [TestMethod]
+        public void filmsDetailsPostTest8()
+        {
+            JsonResult result = controller.Details("9", "279", "69") as JsonResult;
+            var responseText = result.Data.GetType().GetProperty("responseText").GetValue(result.Data);
+            Assert.AreEqual(responseText, "Thank you for rating this movie!");
         }
     }
 }

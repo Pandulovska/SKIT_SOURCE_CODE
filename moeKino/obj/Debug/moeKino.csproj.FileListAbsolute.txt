@@ -1340,3 +1340,9 @@ C:\Users\PC\Desktop\SKIT_PROEKT_SOURCE\moeKino\obj\Debug\moeKino.csproj.CoreComp
 C:\Users\PC\Desktop\SKIT_PROEKT_SOURCE\moeKino\obj\Debug\moeKino.csproj.CopyComplete
 C:\Users\PC\Desktop\SKIT_PROEKT_SOURCE\moeKino\obj\Debug\moeKino.dll
 C:\Users\PC\Desktop\SKIT_PROEKT_SOURCE\moeKino\obj\Debug\moeKino.pdb
+C:\Users\andri\Desktop\SKIT_PROEKT\moeKino-InternetTehnologii-master\moeKino\bin\Mono.Cecil.dll
+C:\Users\andri\Desktop\SKIT_PROEKT\moeKino-InternetTehnologii-master\moeKino\bin\Mono.Cecil.Mdb.dll
+C:\Users\andri\Desktop\SKIT_PROEKT\moeKino-InternetTehnologii-master\moeKino\bin\Mono.Cecil.Pdb.dll
+C:\Users\andri\Desktop\SKIT_PROEKT\moeKino-InternetTehnologii-master\moeKino\bin\Mono.Cecil.Rocks.dll
+C:\Users\andri\Desktop\SKIT_PROEKT\moeKino-InternetTehnologii-master\moeKino\bin\NLog.dll
+C:\Users\andri\Desktop\SKIT_PROEKT\moeKino-InternetTehnologii-master\moeKino\bin\NLog.xml
